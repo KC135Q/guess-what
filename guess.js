@@ -54,12 +54,24 @@ function updateDisplay() {
   if (roundOver) {
     resetRound()
   }
+  var formattedWord = formatWordToGuess()
   // need to format the wordToGuess before displaying it
-  console.log("Word So Far", formatWordToGuess())
+  console.log("Word So Far", formattedWord)
   console.log("Wins: " + wins)
   console.log("Losses: " + losses)
   console.log("Guesses Remaining: " + guessesLeft)
   console.log("Incorrect Letters: ", wrongGuesses)
+  $("#wins").text(wins)
+  $("#losses").text(losses)
+  $("#word").text(formattedWord)
+  $("#guesses").text(guessesLeft)
+  $("#bad-letters").text(wrongGuesses)
+
+  // <p>Wins: <span id="wins">0</span></p>
+  // <p>Losses: <span id="losses">0</span></p>
+  // <p>Word to Guess: <span id="word"></span></p>
+  // <p>Guesses left: <span id="guesses">0</span></p>
+  // <p>Incorrect letters: <span id="bad-letters">0</span></p>
 }
 
 function resetRound() {
@@ -95,6 +107,9 @@ function checkLetter(letter) {
 
 document.onkeyup = function (event) {
   var keyPressed = event.key
+  if (roundOver) {
+    resetRound()
+  }
   console.log(keyPressed)
   // Do some logic
   if (allGuesses.includes(keyPressed)) {
